@@ -6,7 +6,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import {app} from '../firebase';
+import { app } from "../firebase";
 
 function Profile() {
   const fileRef = useRef(null);
@@ -28,19 +28,22 @@ function Profile() {
     const storageRef = ref(storage, fileName);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    uploadTask.on("state_changed", (snapshot) => {
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      setFilePerc(Math.round(progress));
-    },
-    (error) => {
-      setFileUploadError(true);
-    },
-    () => {
-      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
-        setFormData({ ...formData, avatar: downloadURL })
-      );
-    }
-  );
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setFilePerc(Math.round(progress));
+      },
+      (error) => {
+        setFileUploadError(true);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
+          setFormData({ ...formData, avatar: downloadURL })
+        );
+      }
+    );
   };
 
   return (
@@ -62,15 +65,16 @@ function Profile() {
         />
         <p className="text-sm self-center">
           {fileUploadError ? (
-        <span className="text-red-700">Error Image upload(image must be less than 2 MB)</span> 
-      ) :
-        filePerc > 0 && filePerc < 100 ? (
-          <span className="text-slate-700">{`Uploading ${filePerc}%`} </span> ) :
-          filePerc === 100 ? (
-            <span className="text-red-700">Image successfully uploaded!</span> ) : (
+            <span className="text-red-700">
+              Error Image upload(image must be less than 2 MB)
+            </span>
+          ) : filePerc > 0 && filePerc < 100 ? (
+            <span className="text-slate-700">{`Uploading ${filePerc}%`} </span>
+          ) : filePerc === 100 ? (
+            <span className="text-red-700">Image successfully uploaded!</span>
+          ) : (
             ""
-          )
-        }
+          )}
         </p>
         <input
           type="text"
