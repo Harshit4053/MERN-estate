@@ -6,6 +6,6 @@ import { verifyToken } from '../utils/varifyUser.js';
 
 const router = express.Router();
 
-router.post('/create', createListing , verifyToken);
+router.post('/create', verifyToken , createListing);
 
 export default router;
