@@ -82,6 +82,7 @@ export default function Profile() {
       }
       dispatch(updateUserSuccess(data));
       setUpdateSuccess(true);
+      setTimeout(() => setUpdateSuccess(false), 3000);
     } catch (error) {
       dispatch(updateUserFailure(error.message));
     }
@@ -119,10 +120,11 @@ export default function Profile() {
     }
   };
 
-  const handleShowListings = async () => {
+   const handleShowListings = async () => {
     try {
       setShowListingsError(false);
       const res = await fetch(`/api/user/listings/${currentUser._id}`);
+     
       const data = await res.json();
       if (data.success === false) {
         setShowListingsError(true);
@@ -233,7 +235,7 @@ export default function Profile() {
       </div>
       <p className=" text-red-700 mt-5">{error ? error : ""}</p>
       <p className=" text-green-700 mt-5">
-        {updateUserSuccess ? "User is updated successfully!" : ""}
+        {updateSuccess ? "User is updated successfully!" : ""}
       </p>
    <button onClick={handleShowListings} className='text-green-700 w-full'>
         Show Listings
