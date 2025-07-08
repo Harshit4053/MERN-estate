@@ -21,7 +21,7 @@ mongoose
     console.error("❌ MongoDB connection error:", err);
   });
 
-  const __dirname = path.resolve();
+  // const __dirname = path.resolve();
 
 app.use(express.json());
 
