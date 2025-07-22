@@ -4,14 +4,6 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  server: {
-    proxy: {
-      "/api": {
-        target: "https://mern-estate-eta-eight.vercel.app",
-        secure: false,
-      },
-    },
-  },
   plugins: [react(), tailwindcss()],
 });
 
